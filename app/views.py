@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+class Auth:
+    def login(request):
+        return render(request, 'auth/login.html')
