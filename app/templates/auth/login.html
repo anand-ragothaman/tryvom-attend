@@ -1,40 +1,50 @@
-{% extends 'layouts/auth.html' %}
-
-{% block title %}Login{%endblock%}
-
+{% extends 'layouts/auth.html' %} {% block title %}Login{%endblock%}
 {% block content %}
+
+
+
 
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register -->
+
             {% if form.non_field_errors %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Warning!:-</strong> {{ form.non_field_errors }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endif %}
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>{{ message.tags }}!:-</strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <!-- Register -->
+
+
             <div class="card">
                 <div class="card-body">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center">
                         <div href="index.html" class="app-brand-link gap-2">
-              <span class="app-brand-text demo text-body fw-bolder">
-                TryVom Attend</span
-              >
+                            <span class="app-brand-text demo text-body fw-bolder">
+                                TryVom Attend</span>
                         </div>
                     </div>
                     <!-- /Logo -->
                     <h4 class="mb-2">Welcome to TryVom Attend! ✔️</h4>
                     <p class="mb-4">Please sign-in to start take attendance</p>
 
-                    <form
-                            id="formAuthentication"
-                            class="mb-3"
-                            action="{% url 'auth.login' %}"
-                            method="POST"
-                    >
-                        {% csrf_token %}
+                    <form id="formAuthentication" class="mb-3" action="{% url 'auth.login' %}" method="POST">
+                        {% csrf_token %} {% if next_route != None %}
+                        <input type="text" name="next_route" value="{{ next_route }}" hidden="hidden" />
+                        {% endif %}
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Username</label>
                             {{ form.username }}
@@ -53,7 +63,6 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
-
                             </div>
                             <div class="input-group input-group-merge">
                                 {{ form.password }}
@@ -65,9 +74,7 @@
                                 <!--                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"-->
                                 <!--                                        aria-describedby="password"-->
                                 <!--                                />-->
-                                <span class="input-group-text cursor-pointer"
-                                ><i class="bx bx-hide"></i
-                                ></span>
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
 
                             {% if form.password.errors %}
