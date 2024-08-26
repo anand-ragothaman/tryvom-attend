@@ -1,0 +1,65 @@
+  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+      <a href="index.html" class="app-brand-link">
+        <span class="app-brand-text demo menu-text fw-bolder ms-2">TryVom Attend</span>
+      </a>
+
+      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+      </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Menus</span>
+    </li>
+
+    <ul class="menu-inner py-1">
+
+      {% for menu in menus %}
+
+      {% if menu.type == 0 %}
+      <li class="menu-item active">
+        <a href="{% url menu.route %}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div data-i18n="Analytics">{{ menu.name }}</div>
+        </a>
+      </li>
+      {% endif %}
+
+
+      {% if menu.type == 1 %}
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div data-i18n="Layouts">{{ menu.name }}</div>
+        </a>
+
+        <ul class="menu-sub">
+
+          {% for sub in menu.sub_menus %}
+          <li class="menu-item">
+            <a href="{% url sub.route %}" class="menu-link">
+              <div data-i18n="Without menu">{{ sub.name }}</div>
+            </a>
+          </li>
+          {% endfor %}
+
+        </ul>
+      </li>
+      {% endif %}
+
+
+
+      {% endfor %}
+
+
+
+
+
+
+
+
+    </ul>
+  </aside>
