@@ -39,6 +39,8 @@
 <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
 
 <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/vendor/libs/dataTables/dataTables.bootstrap5.min.css' %}" />
 
 <!-- Page CSS -->
 
@@ -77,9 +79,8 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                  aria-label="Search..." />
+
+                <h4 class="fw-bold py-3 mt-3">{% block breadcrumb %}{% endblock breadcrumb %}</h4>
               </div>
             </div>
             <!-- /Search -->
@@ -107,7 +108,12 @@
                         <div class="flex-grow-1">
                           <span class="fw-semibold d-block">{{request.user.first_name}}
                             {{request.user.last_name}}</span>
+
+
+                          {% if request.user.is_superuser %}
                           <small class="text-muted">Admin</small>
+                          {% endif %}
+
                         </div>
                       </div>
                     </a>
@@ -218,9 +224,12 @@
 
   <!-- Vendors JS -->
   <script src="{% static 'assets/vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/dataTables/dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/dataTables/dataTables.bootstrap5.min.js' %}"></script>
 
   <!-- Main JS -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/app.js' %}"></script>
 
   <!-- Page JS -->
   <script src="{% static 'assets/js/dashboards-analytics.js' %}"></script>

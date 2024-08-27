@@ -1,11 +1,9 @@
 from django.contrib.auth import login, authenticate, logout
 from app.forms.forms import LoginForm
-from app.decorators import unauthenticated_user
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
 
-@unauthenticated_user
 def login_view(request):
     if 'next' in request.GET:
         next_route = request.GET['next']
