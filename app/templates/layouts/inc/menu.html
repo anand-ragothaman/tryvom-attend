@@ -20,10 +20,10 @@
     {% for menu in menus %}
 
     {% if menu.type == 0 %}
-    <li class="menu-item {% if request.get_full_path == menu.url %} active {% endif %}">
+    <li class="menu-item {% if menu.prefix in request.get_full_path %} active {% endif %}">
       <a href="{{menu.url}}" class="menu-link">
         <i class="menu-icon tf-icons bx {{ menu.icon }}"></i>
-        <div data-i18n="Analytics">{{ menu.name }}</div>
+        <div data-i18n="Analytics">{{menu.name }}</div>
       </a>
     </li>
     {% endif %}
