@@ -40,8 +40,9 @@
                     <h4 class="mb-2">Welcome to TryVom Attend! ✔️</h4>
                     <p class="mb-4">Please sign-in to start take attendance</p>
 
-                    <form id="formAuthentication" class="mb-3" action="{% url 'auth.login' %}" method="POST">
-                        {% csrf_token %} {% if next_route != None %}
+                    <form class="mb-3" action="{% url 'auth.login' %}" method="POST">
+                        {% csrf_token %}
+                        {% if next_route != None %}
                         <input type="text" name="next_route" value="{{ next_route }}" hidden="hidden" />
                         {% endif %}
 
