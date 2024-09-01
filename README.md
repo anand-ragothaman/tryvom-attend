@@ -76,10 +76,6 @@ Ensure you have the following installed:
 
    Open your web browser and go to `http://127.0.0.1:8000/` to access the TryVom Attend application.
 
-8. **Access Admin Interface**
-
-   Go to `http://127.0.0.1:8000/admin/` to access the Django admin interface and manage your application. Log in using the superuser credentials created earlier.
-
 ## Usage
 
 - **Dashboard**: View an overview of attendance data.
