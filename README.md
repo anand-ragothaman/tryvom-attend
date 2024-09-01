@@ -1,6 +1,4 @@
 
-
-```markdown
 # TryVom Attend
 
 **TryVom Attend** is a single-user attendance management software built with Django. It provides functionalities to manage attendance with a user-friendly interface. The software includes the following modules:
