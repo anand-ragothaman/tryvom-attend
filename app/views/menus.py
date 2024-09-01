@@ -21,6 +21,27 @@ def menus():
             'url': '/members/',
             'type': 0
         },
+        {
+            'name': 'Attendance',
+            'icon': 'bx-badge-check',
+            'prefix': '/attendance/',
+            'url': '/attendance/',
+            'type': 0
+        },
+        {
+            'name': 'Report',
+            'icon': 'bxs-report',
+            'prefix': '/report/',
+            'url': '/report/',
+            'type': 0
+        },
+        {
+            'name': 'Users',
+            'icon': 'bx-user',
+            'prefix': '/users/',
+            'url': '/users/',
+            'type': 0
+        },
         # {
         #     'name': 'Users',
         #     'icon': 'bx-user',

@@ -1,0 +1,118 @@
+{% extends 'layouts/app.html' %}
+
+{% load static %}
+
+{% load custom_tags %}
+
+{% block title%} Attendance {% endblock %}
+
+{% block breadcrumb %}
+Attendance
+{% endblock breadcrumb %}
+
+{% block content%}
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Warning!:-</strong> {{ form.non_field_errors }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <!-- Basic Layout -->
+    <div class="row">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{ message.tags }}!:-</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Members List</h5>
+                    <form action="" method="get">
+                        <small class="text-muted float-end d-flex">
+                            <label class="form-label mt-3 me-3">Category: </label>
+                            <select name="cat" class="form-control"
+                                onchange="window.location = this.options[this.selectedIndex].value">
+
+                                <option value="/attendance/" {% if cat is None  %} selected {% endif %}>All</option>
+                                {% for category in categories %}
+                                <option value="?cat={{ category.id }}" {% if cat == category.id %}selected{% endif %}>
+                                    {{ category.category }}
+                                </option>
+                                {% endfor %}
+                                <option value="?cat=0" {% if cat == '0' %} selected {% endif %}>Uncategorized</option>
+
+                            </select>
+                        </small>
+                    </form>
+                </div>
+                <div class="card-body table-border-style">
+                    <form action="{% url 'attendance.attendance_submit' %}" method="POST">
+                  {% csrf_token %}
+                  {% if cat is not None%}
+                  <input name="cat" value="{{ cat }}" hidden/>
+                  {% endif %}
+                        <div class="table-responsive text-nowrap">
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Name</th>
+                                    <th>Member ID</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+
+                                {% for member in members %}
+
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{member.name}}</td>
+                                    <td>{{member.member_id}}</td>
+                                    <td>{% if member.category is not None %}
+                                        {{member.category}}
+                                        {% else %}
+                                        Uncategorized
+                                        {% endif %}
+                                    </td>
+                                    <td>{% get_member_attendance_status member.id today_date as member_attendance_status%}
+                                        {%if member_attendance_status == 0 %}
+                                        <span class="badge rounded-pill bg-secondary">Not Taken</span>
+                                        {% elif member_attendance_status == 1 %}
+                                        <span class="badge rounded-pill bg-success">Present</span>
+                                        {% elif member_attendance_status == 2 %}
+                                        <span class="badge rounded-pill bg-danger">Absent</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" {% if member_attendance_status == 1 or member_attendance_status == 0 %}checked{% endif %} name="{{ member.id }}"   data-toggle="toggle" data-on="<i class='bx bx-check-circle'></i> Present" data-off="<i class='bx bx-x-circle'></i> Absent" data-onstyle="success" data-offstyle="danger">
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                        
+                    </div>
+
+                    <button type="submit" class="btn btn-primary float-end">Submit</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

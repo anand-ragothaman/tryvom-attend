@@ -40,8 +40,9 @@
 
 <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
 <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/vendor/libs/dataTables/dataTables.bootstrap5.min.css' %}" />
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css">
+<link rel="stylesheet" href="{% static 'assets/vendor/libs/dataTables/dataTables.min.css' %}" />
+<link href="{% static 'assets/vendor/libs/bootstrap-toggle/bootstrap-toggle.min.css' %}" rel="stylesheet">
+ 
 <!-- Page CSS -->
 
 <!-- Helpers -->
@@ -184,15 +185,7 @@
                 <a href="https://tryvom.tech" target="_blank" class="footer-link fw-bolder">TryVom Technologies</a>
               </div>
               <div>
-                {% comment %} <a href="https://themeselection.com/license/" class="footer-link me-4"
-                  target="_blank">License</a>
-                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                  target="_blank" class="footer-link me-4">Documentation</a>
-
-                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                  class="footer-link me-4">Support</a> {% endcomment %}
+              
                 <span class="footer-link me-4">TryVom Attend - v 1.0.0</span>
               </div>
             </div>
@@ -225,10 +218,14 @@
 
   <!-- Vendors JS -->
   <script src="{% static 'assets/vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/dataTables/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/dataTables/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/dataTables/vfs_fonts.js' %}"></script>
   <script src="{% static 'assets/vendor/libs/dataTables/dataTables.min.js' %}"></script>
-  <script src="{% static 'assets/vendor/libs/dataTables/dataTables.bootstrap5.min.js' %}"></script>
   <script src="{% static 'assets/vendor/libs/ckeditor/ckeditor.js' %}"></script>
-  <!-- Main JS -->
+  <script src="{% static 'assets/vendor/libs/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
+
+<!-- Main JS -->
   <script src="{% static 'assets/js/main.js' %}"></script>
   <script src="{% static 'assets/js/app.js' %}"></script>
 
