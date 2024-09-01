@@ -36,12 +36,19 @@ def menus():
             'type': 0
         },
         {
-            'name': 'Users',
-            'icon': 'bx-user',
-            'prefix': '/users/',
-            'url': '/users/',
+            'name': 'Profile',
+            'icon': 'bx-user-circle',
+            'prefix': '/my-profile/',
+            'url': '/my-profile/',
             'type': 0
         },
+        # {
+        #     'name': 'Users',
+        #     'icon': 'bx-user',
+        #     'prefix': '/users/',
+        #     'url': '/users/',
+        #     'type': 0
+        # },
         # {
         #     'name': 'Users',
         #     'icon': 'bx-user',
