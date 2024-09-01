@@ -1,5 +1,11 @@
 $(document).ready(function () {
-    new DataTable('#example');
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: ['copy', 'excel', 'pdf', 'colvis', 'csv', 'print']
+            }
+        }
+    });
 
     // $.ajax({
     //     url: "test.html",
@@ -36,6 +42,8 @@ $(document).ready(function () {
         .catch(error => {
             console.error(error);
         });
+
+
 
 });
 

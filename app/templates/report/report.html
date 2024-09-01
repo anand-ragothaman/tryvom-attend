@@ -1,0 +1,156 @@
+{% extends 'layouts/app.html' %}
+
+{% load static %}
+
+{% load custom_tags %}
+
+{% block title%} Report {% endblock %}
+
+{% block breadcrumb %}
+Report
+{% endblock breadcrumb %}
+
+{% block content%}
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Warning!:-</strong> {{ form.non_field_errors }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <!-- Basic Layout -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Filter</h5>
+                    {% comment %} <small class="text-muted float-end">Default label</small> {% endcomment %}
+                </div>
+                <div class="card-body">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="form-label">Category </label>
+                                <select name="category" class="form-control" required>
+                                    <option value="all" {% if get_items.category == 'all' %} selected {% endif %}>All
+                                    </option>
+                                    {% for category in categories %}
+                                    <option value="{{ category.id }}"
+                                        {% if get_items.category == category.id %}selected{% endif %}>
+                                        {{ category.category }}
+                                    </option>
+                                    {% endfor %}
+                                    <option value="0" {% if get_items.category == 0 %} selected {% endif %}>
+                                        Uncategorized
+                                    </option>
+
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label">From Date </label>
+                                <input class="form-control" max="{{ today_date }}" type="date" name="from_date"
+                                    value="{{ get_items.from_date }}" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">To Date </label>
+                                <input class="form-control" max="{{ today_date }}" type="date" name="to_date"
+                                    value="{{ get_items.to_date }}" required />
+                            </div>
+                            <div class="col-md-3 mt-4">
+                                <button type="submit" class="btn btn-primary">Fetch</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{ message.tags }}!:-</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Members List</h5>
+                    <small class="text-muted float-end">
+                        <span class="badge rounded-pill bg-secondary">N</span> = Not Taken<br />
+                        <span class="badge rounded-pill bg-success">P</span> = Present<br />
+                        <span class="badge rounded-pill bg-danger">A</span> = Absent
+                    </small>
+                </div>
+                <div class="card-body table-border-style">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table" id="example">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Name</th>
+                                    <th>Member ID</th>
+                                    <th>Category</th>
+
+                                    {% for date in th_dates %}
+                                    <th>{{ date.0 }}<br />{{ date.1 }}</th>
+
+                                    {% endfor %}
+
+                                    <th>Total<br />Days</th>
+                                    <th>Total<br />Not Taken</th>
+                                    <th>Total<br />Present</th>
+                                    <th>Total<br />Absent</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+
+                                {% for member in members %}
+
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{member.name}}</td>
+                                    <td>{{member.member_id}}</td>
+                                    <td>{% if member.category is not None %}
+                                        {{member.category}}
+                                        {% else %}
+                                        Uncategorized
+                                        {% endif %}
+                                    </td>
+                                    {% for date in loop_dates %}
+                                    <td>
+                                        {% get_member_attendance_status member.id date|string_to_date as member_attendance_status%}
+                                        {%if member_attendance_status == 0 %}
+                                        <span class="badge rounded-pill bg-secondary">N</span>
+                                        {% elif member_attendance_status == 1 %}
+                                        <span class="badge rounded-pill bg-success">P</span>
+                                        {% elif member_attendance_status == 2 %}
+                                        <span class="badge rounded-pill bg-danger">A</span>
+                                        {% endif %}
+                                    </td>
+
+                                    {% endfor %}
+                                    {% get_member_attendance_counts member.id get_items.from_date get_items.to_date as member_attendance_counts%}
+                                    <td>{{ member_attendance_counts.no_of_days }}</td>
+                                    <td>{{ member_attendance_counts.not_taken }}</td>
+                                    <td>{{ member_attendance_counts.present }}</td>
+                                    <td>{{ member_attendance_counts.absent }}</td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
