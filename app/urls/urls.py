@@ -8,12 +8,15 @@ urlpatterns = [
     path('auth/logout/', auth_views.logout_view, name='auth.logout'),
 
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('my-profile/', views.my_profile, name='my_profile'),
+    path('change-password-submit/', views.change_password_submit,
+         name='change_password_submit'),
 
     path('category/', include(category_urls)),
     path('members/', include(member_urls)),
     path('attendance/', include(attendance_urls)),
     path('report/', include(report_urls)),
-    path('users/', include(user_urls)),
+    # path('users/', include(user_urls)),
 
 
 ]
